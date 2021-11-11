@@ -1,5 +1,52 @@
+@mixin border {
+  border-radius: 6px;
+}
+
 .App {
   min-height: 100vh;
   display: grid;
   place-content: center;
+}
+
+header {
+  display: inline-flex;
+  flex-direction: column;
+  
+  h1,h2,h3 {
+    font-weight: 400;
+  }
+  
+  h1 {
+    font-size: 4rem;
+    color: #000B12;
+    line-height: 4rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+    color: var(--blue);
+    margin-left: auto;
+  }
+
+  form {
+    @include border;
+    background: #06000015;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    
+    width: calc(100vw - 2rem);
+    justify-content: space-between;
+    input {
+      outline: none;
+      border: none;
+      font-size: 1.125rem;
+      padding: 0.75rem 0 0.75rem .5rem;
+      background: transparent;
+    }
+
+    button {
+      margin-right: 8px;
+    }
+  }
 }
