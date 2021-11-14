@@ -47,3 +47,12 @@ section {
     }
   }
 }
+
+
+@media (max-width: 432px) {
+  section {
+    width: auto;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}

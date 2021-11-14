@@ -63,6 +63,10 @@ form {
   gap: 1rem;
 
   transition: .45s all;
+
+  @media (max-width: 432px) {
+    width: 100%;
+  }
 }
 
 @media (max-width: 414px){
