@@ -6,12 +6,13 @@ type TodoProps = {
   description: string
   changeHandler: React.ChangeEventHandler<HTMLInputElement>
   deleteHandler: React.MouseEventHandler<HTMLButtonElement>
+  isChecked: boolean
 }
 
-export default function Todo({id, description, changeHandler, deleteHandler}: TodoProps) {
+export default function Todo({id, description, changeHandler, deleteHandler, isChecked}: TodoProps) {
   return (
     <section>
-      <input type="checkbox" id={id} onChange={changeHandler}/>
+      <input type="checkbox" id={id} checked={isChecked} onChange={changeHandler}/>
       <h1>
         <label htmlFor={id}>
           {description}
