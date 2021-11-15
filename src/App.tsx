@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {getItem, setItem} from './hooks/useLocalStorage';
 import './App.scss';
 import Todo from './components/Todo';
 
@@ -10,6 +11,18 @@ interface TodoProps {
 function App() {
   const [todos, setTodos] = useState<TodoProps[]>([]);
   const [inputDescription, setInputDescription] = useState('');
+
+  useEffect(() => {
+    const response = getItem<TodoProps>('@todolist/todos');
+
+    if (response !== null ) {
+      setTodos(response);
+    }
+  }, []);
+
+  useEffect(() => {
+    setItem<TodoProps>('@todolist/todos', todos);
+  }, [todos]);
 
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -26,7 +39,7 @@ function App() {
 
     setTodos((oldTodos) => (
       oldTodos.map((item:TodoProps, index) =>{
-        return id === index+'' ? {...item, finished: !event.target.checked} : {...item};
+        return id === index+'' ? {...item, finished: event.target.checked} : {...item};
       })
     ));
   }
@@ -68,6 +81,7 @@ function App() {
         {todos.map((item, index) => {
           return (
             <Todo
+              isChecked={item.finished}
               deleteHandler={deleteHandler}
               changeHandler={changeHandler}
               key={`toto_${index}`}
