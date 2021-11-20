@@ -13,8 +13,8 @@ ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/auth" element={<Auth />} />
+          <Route path="/users/:uid/todos" element={<App />} />
+          <Route path="/" element={<Auth />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>,
