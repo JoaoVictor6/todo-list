@@ -13,7 +13,7 @@ function App() {
   const [inputDescription, setInputDescription] = useState('');
 
   useEffect(() => {
-    const response = getItem<TodoProps>('@todolist/todos');
+    const response = getItem<TodoProps, TodoProps[]>('@todolist/todos');
 
     if (response !== null ) {
       setTodos(response);
@@ -21,7 +21,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setItem<TodoProps>('@todolist/todos', todos);
+    setItem('@todolist/todos', todos);
   }, [todos]);
 
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
