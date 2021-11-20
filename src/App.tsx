@@ -32,6 +32,7 @@ function App() {
       description: inputDescription,
       finished: false,
     }]);
+    setInputDescription('');
   }
 
   function changeHandler(event: React.ChangeEvent<HTMLInputElement>) {
