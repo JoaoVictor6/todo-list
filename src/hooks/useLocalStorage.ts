@@ -1,12 +1,12 @@
 
-function getItem<T>(key: string): T[] | null {
+function getItem<T, K = unknown>(key: string): K | null {
   const storage = localStorage;
   const response = storage.getItem(key);
-  if (typeof response === null) return null;
+  if (response === null) return null;
   return JSON.parse(response as string);
 }
 
-function setItem<T>(key: string, value: T[]): void {
+function setItem(key: string, value: any): void {
   const storage = localStorage;
   const valueStringify = JSON.stringify(value);
   storage.setItem(key, valueStringify);
