@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import {getItem, setItem} from './hooks/useLocalStorage';
+import React, {useState} from 'react';
 import './App.scss';
 import Todo from './components/Todo';
 
@@ -11,18 +10,6 @@ interface TodoProps {
 function App() {
   const [todos, setTodos] = useState<TodoProps[]>([]);
   const [inputDescription, setInputDescription] = useState('');
-
-  useEffect(() => {
-    const response = getItem<TodoProps>('@todolist/todos');
-
-    if (response !== null ) {
-      setTodos(response);
-    }
-  }, []);
-
-  useEffect(() => {
-    setItem<TodoProps>('@todolist/todos', todos);
-  }, [todos]);
 
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
