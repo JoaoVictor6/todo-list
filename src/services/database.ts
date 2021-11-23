@@ -7,7 +7,7 @@ interface firebaseTodosProps {
   id: string
 }
 
-export async function getTodos<T = unknown>(uid: string): Promise<T | null>{
+export async function getTodos<T = firebaseTodosProps>(uid: string): Promise<T | null>{
   if(uid) {
     const dbRef = ref(getDatabase());
     const data = await get(child(dbRef, `users/${uid}`))
@@ -25,10 +25,8 @@ export async function getTodos<T = unknown>(uid: string): Promise<T | null>{
 
       return firebaseTodos as unknown as T
     }
-
   }
   return null
-
 }
 
 export function writeUserTodo(
