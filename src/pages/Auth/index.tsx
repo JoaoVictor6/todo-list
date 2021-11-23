@@ -16,7 +16,7 @@ export default function Auth() {
   async function onClickHandler() {
     const response = await AuthFirebase()
         
-    setItem<string>("@todolist/uid", response)
+    setItem("@todolist/uid", response)
     navigate(`/users/${response}/todos`)
   }
   return (
