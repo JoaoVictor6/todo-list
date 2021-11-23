@@ -2,7 +2,7 @@
 function getItem<T, K = unknown>(key: string): K | null {
   const storage = localStorage;
   const response = storage.getItem(key);
-  if (null) return null;
+  if (response) return null;
   return JSON.parse(response as string);
 }
 
