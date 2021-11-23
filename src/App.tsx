@@ -92,13 +92,13 @@ function App() {
         </button>
       </form>
       <div className="todo-area">
-        {todos.map((item, index) => {
+        {todos.map((item) => {
           return (
             <Todo
               isChecked={item.finished}
               deleteHandler={deleteHandler}
               changeHandler={changeHandler}
-              key={`toto_${index}`}
+              key={item.id}
               description={item.description}
               id={item.id}/>
           );
