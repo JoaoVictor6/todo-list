@@ -7,7 +7,7 @@ interface firebaseTodosProps {
   id: string
 }
 
-export async function getTodos<T = firebaseTodosProps>(uid: string): Promise<T | null>{
+export async function getTodos<T = firebaseTodosProps[]>(uid: string): Promise<T | null>{
   if(uid) {
     const dbRef = ref(getDatabase());
     const data = await get(child(dbRef, `users/${uid}`))
