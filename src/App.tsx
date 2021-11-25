@@ -1,54 +1,68 @@
 import React, {useEffect, useState} from 'react';
-import {getItem, setItem} from './hooks/useLocalStorage';
+import { useParams } from 'react-router';
 import './App.scss';
 import Todo from './components/Todo';
+import { changeTodoData, deleteTodo, getTodos, writeUserTodo } from './services/database';
+
+function ID(): string {
+  return '_' + Math.random().toString(36).substr(2, 9);
+};
 
 interface TodoProps {
   finished: boolean
   description: string
+  id: string
 }
 
 function App() {
   const [todos, setTodos] = useState<TodoProps[]>([]);
   const [inputDescription, setInputDescription] = useState('');
+  const { uid } = useParams()
 
   useEffect(() => {
-    const response = getItem<TodoProps>('@todolist/todos');
-
-    if (response !== null ) {
-      setTodos(response);
-    }
-  }, []);
-
-  useEffect(() => {
-    setItem<TodoProps>('@todolist/todos', todos);
-  }, [todos]);
+    getTodos<TodoProps[]>(uid as string).then(data => {
+      if(data !== null){
+        data ? setTodos(data) : setTodos([])
+      }
+    })
+  }, [uid])
 
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
+    const idTodo = ID()
+    
     if (!inputDescription) return;
     setTodos((old) => [...old, {
       description: inputDescription,
       finished: false,
+      id: idTodo
     }]);
+
+    setInputDescription('');
+    writeUserTodo(idTodo, inputDescription, false)
   }
 
   function changeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     const id = event.target.id;
-
     setTodos((oldTodos) => (
-      oldTodos.map((item:TodoProps, index) =>{
-        return id === index+'' ? {...item, finished: event.target.checked} : {...item};
+      oldTodos.map((item:TodoProps) =>{
+        if(id === item.id){
+          changeTodoData(item.id, item.description, event.target.checked)
+          return {...item, finished: event.target.checked}
+        } 
+        return {...item};
       })
     ));
+  
   }
 
   function deleteHandler(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     const id = event.currentTarget.id;
     setTodos((oldTodos) =>
-      [...oldTodos.filter((_, index) => index+'' !== id)],
+      [...oldTodos.filter((item) => item.id !== id)],
     );
+
+    deleteTodo(id)
   }
 
   return (
@@ -78,15 +92,15 @@ function App() {
         </button>
       </form>
       <div className="todo-area">
-        {todos.map((item, index) => {
+        {todos.map((item) => {
           return (
             <Todo
               isChecked={item.finished}
               deleteHandler={deleteHandler}
               changeHandler={changeHandler}
-              key={`toto_${index}`}
+              key={item.id}
               description={item.description}
-              id={index + ''}/>
+              id={item.id}/>
           );
         })}
       </div>
