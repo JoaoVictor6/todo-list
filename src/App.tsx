@@ -42,7 +42,7 @@ function App() {
     writeUserTodo(idTodo, inputDescription, false)
   }
 
-  function changeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+  async function changeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     const id = event.target.id;
     setTodos((oldTodos) => (
       oldTodos.map((item:TodoProps) =>{
