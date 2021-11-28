@@ -1,4 +1,12 @@
-import { getDatabase, ref, set, remove, get, child } from "firebase/database";
+import { 
+  getDatabase, 
+  ref, 
+  set, 
+  remove, 
+  get, 
+  child, 
+  update 
+} from "firebase/database";
 import { auth } from "./firebase";
 
 interface firebaseTodosProps {
@@ -43,18 +51,25 @@ export function writeUserTodo(
   });
 }
 
-export function changeTodoData(
+export async function changeTodoData(
   todoId: string,
   description: string,
   finished: boolean) 
 {
   const db = getDatabase()
   const uid = auth.currentUser?.uid
-  console.log('aaa')
-  set(ref(db, `users/${uid}/${todoId}`), {
-    finished,
+  
+  const updates:Record<string, {
+    finished: boolean
+    description: string
+  }> = {}
+
+  updates[`/users/${uid}/${todoId}`] = { 
+    finished, 
     description
-  });
+  }
+
+  await update(ref(db), updates)
 }
 
 export function deleteTodo(todoId:string) {
