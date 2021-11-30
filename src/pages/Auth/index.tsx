@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getItem, setItem } from '../../hooks/useLocalStorage';
-import AuthFirebase from '../../services/auth';
+import {AuthFirebase} from '../../services/auth';
+import { auth } from '../../services/firebase';
 import './style.scss';
 
 export default function Auth() {
@@ -14,7 +15,8 @@ export default function Auth() {
     }
   })
   async function onClickHandler() {
-    const response = await AuthFirebase()
+    const authFirebase = new AuthFirebase(auth)
+    const response = await authFirebase.authentication()
         
     setItem("@todolist/uid", response)
     navigate(`/users/${response}/todos`)

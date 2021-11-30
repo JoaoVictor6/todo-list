@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import './App.scss';
 import Todo from './components/Todo';
-import { changeTodoData, deleteTodo, getTodos, writeUserTodo } from './services/database';
+import { FirebaseDatabase } from './services/database';
+import { auth } from './services/firebase';
 
 function ID(): string {
   return '_' + Math.random().toString(36).substr(2, 9);
@@ -18,6 +19,16 @@ function App() {
   const [todos, setTodos] = useState<TodoProps[]>([]);
   const [inputDescription, setInputDescription] = useState('');
   const { uid } = useParams()
+  const navigate = useNavigate()
+
+  const firebaseDatabase = new FirebaseDatabase(auth, () => {
+    navigate("/")
+  })
+  const { 
+    changeTodoData, 
+    getTodos, 
+    deleteTodo, 
+    writeUserTodo } = firebaseDatabase
 
   useEffect(() => {
     getTodos<TodoProps[]>(uid as string).then(data => {

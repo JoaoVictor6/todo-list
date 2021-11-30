@@ -1,10 +1,26 @@
-import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "./firebase";
+import { Auth, signInWithPopup, User } from "firebase/auth";
+import { provider } from "./firebase";
 
-export default async function AuthFirebase() {
-  if(auth.currentUser?.uid) {
-    return auth.currentUser?.uid
+interface CurrentUser {
+  photoURL: string
+  displayName: string
+  email: string
+}
+export class AuthFirebase {
+  private auth: Auth
+  constructor(auth: Auth){
+    this.auth = auth
   }
-  const response = await signInWithPopup(auth, provider)
-  return response.user.uid
+
+  async authentication():Promise<string> {
+    if(this.auth.currentUser?.uid) {
+      return this.auth.currentUser?.uid
+    }
+    const response = await signInWithPopup(this.auth, provider)
+    return response.user.uid
+  }
+
+  get UserInfo(): CurrentUser{
+    return this.auth.currentUser as CurrentUser
+  }
 }
