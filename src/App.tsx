@@ -32,11 +32,9 @@ function App() {
 
   useEffect(() => {
     getTodos<TodoProps[]>(uid as string).then(data => {
-      if(data !== null){
-        data ? setTodos(data) : setTodos([])
-      }
+      data ? setTodos(data) : setTodos([])
     })
-  }, [uid])
+  }, [uid, getTodos])
 
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

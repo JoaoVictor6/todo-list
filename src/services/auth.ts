@@ -1,4 +1,4 @@
-import { Auth, signInWithPopup, User } from "firebase/auth";
+import { Auth, signInWithPopup } from "firebase/auth";
 import { provider } from "./firebase";
 
 interface CurrentUser {

@@ -1,4 +1,4 @@
-import { Auth } from "@firebase/auth";
+import type { Auth } from "@firebase/auth";
 import { 
   getDatabase, 
   ref, 
@@ -6,8 +6,7 @@ import {
   remove, 
   get, 
   child, 
-  update, 
-  Database
+  update
 } from "firebase/database";
 import { auth } from "./firebase";
 
