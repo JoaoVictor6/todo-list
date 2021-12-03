@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
 
-function getItem<T, K = unknown>(key: string): K | null {
-  const storage = localStorage;
-  const response = storage.getItem(key);
-  if (response === null) return null;
+function getItem<T>(key: string): T | null {
+  const response = localStorage.getItem(key);
+  if (response === null) return response;
   return JSON.parse(response as string);
 }
 
@@ -12,4 +12,16 @@ function setItem(key: string, value: any): void {
   storage.setItem(key, valueStringify);
 }
 
-export {getItem, setItem};
+export default function useLocalStorage<T>(key: string, defaultValue: T): [T, React.Dispatch<T>] {
+  const [value, setValue] = useState<T>(() => {
+    const saved = getItem<T>(key)
+
+    return saved || defaultValue
+  })
+
+  useEffect(() => {
+    setItem(key, value)
+  }, [key, value])
+
+  return [value, setValue]
+}

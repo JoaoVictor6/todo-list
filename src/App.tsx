@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {getItem, setItem} from './hooks/useLocalStorage';
+import React, { useState } from 'react';
+import useLocalStorage from './hooks/useLocalStorage';
 import './App.scss';
 import Todo from './components/Todo';
 
@@ -9,26 +9,15 @@ interface TodoProps {
 }
 
 function App() {
-  const [todos, setTodos] = useState<TodoProps[]>([]);
   const [inputDescription, setInputDescription] = useState('');
-
-  useEffect(() => {
-    const response = getItem<TodoProps, TodoProps[]>('@todolist/todos');
-
-    if (response !== null ) {
-      setTodos(response);
-    }
-  }, []);
-
-  useEffect(() => {
-    setItem('@todolist/todos', todos);
-  }, [todos]);
-
+  const [todos, setTodos] = useLocalStorage<TodoProps[]>('@todolist/todos', [])
+  
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!inputDescription) return;
-    setTodos((old) => [...old, {
+
+    setTodos([...todos, {
       description: inputDescription,
       finished: false,
     }]);
@@ -37,19 +26,16 @@ function App() {
 
   function changeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     const id = event.target.id;
-
-    setTodos((oldTodos) => (
-      oldTodos.map((item:TodoProps, index) =>{
+    
+    setTodos(todos.map((item:TodoProps, index) =>{
         return id === index+'' ? {...item, finished: event.target.checked} : {...item};
       })
-    ));
+    );
   }
 
   function deleteHandler(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     const id = event.currentTarget.id;
-    setTodos((oldTodos) =>
-      [...oldTodos.filter((_, index) => index+'' !== id)],
-    );
+    setTodos([...todos.filter((_, index) => index+'' !== id)]);
   }
 
   return (
@@ -79,7 +65,7 @@ function App() {
         </button>
       </form>
       <div className="todo-area">
-        {todos.map((item, index) => {
+        {todos.map((item: TodoProps, index: number) => {
           return (
             <Todo
               isChecked={item.finished}
