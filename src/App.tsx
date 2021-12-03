@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import useLocalStorage from './hooks/useLocalStorage';
 import './App.scss';
 import Todo from './components/Todo';
@@ -10,8 +10,8 @@ interface TodoProps {
 
 function App() {
   const [inputDescription, setInputDescription] = useState('');
-  const [todos, setTodos] = useLocalStorage<TodoProps[]>('@todolist/todos', [])
-  
+  const [todos, setTodos] = useLocalStorage<TodoProps[]>('@todolist/todos', []);
+
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -26,10 +26,10 @@ function App() {
 
   function changeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     const id = event.target.id;
-    
+
     setTodos(todos.map((item:TodoProps, index) =>{
-        return id === index+'' ? {...item, finished: event.target.checked} : {...item};
-      })
+      return id === index+'' ? {...item, finished: event.target.checked} : {...item};
+    }),
     );
   }
 

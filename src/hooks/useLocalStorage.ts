@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from 'react';
 
 function getItem<T>(key: string): T | null {
   const response = localStorage.getItem(key);
@@ -14,14 +14,14 @@ function setItem(key: string, value: any): void {
 
 export default function useLocalStorage<T>(key: string, defaultValue: T): [T, React.Dispatch<T>] {
   const [value, setValue] = useState<T>(() => {
-    const saved = getItem<T>(key)
+    const saved = getItem<T>(key);
 
-    return saved || defaultValue
-  })
+    return saved || defaultValue;
+  });
 
   useEffect(() => {
-    setItem(key, value)
-  }, [key, value])
+    setItem(key, value);
+  }, [key, value]);
 
-  return [value, setValue]
+  return [value, setValue];
 }
