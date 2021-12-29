@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import useLocalStorage from './hooks/useLocalStorage';
 import './App.scss';
 import Todo from './components/Todo';
@@ -22,21 +22,21 @@ function App() {
       finished: false,
     }]);
     setInputDescription('');
-  }
+  };
 
-  function changeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+  const changeHandler = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const id = event.target.id;
 
     setTodos(todos.map((item:TodoProps, index) =>{
       return id === index+'' ? {...item, finished: event.target.checked} : {...item};
     }),
     );
-  }
+  }, [todos]);
 
-  function deleteHandler(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  const deleteHandler = useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const id = event.currentTarget.id;
     setTodos([...todos.filter((_, index) => index+'' !== id)]);
-  }
+  }, [todos]);
 
   return (
     <main className="App">
