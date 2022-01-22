@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getItem, setItem } from '../../hooks/useLocalStorage';
 import {AuthFirebase} from '../../services/auth';
 import { auth } from '../../services/firebase';
 import illustration from '../../assets/images/pablita-list-is-empty.png'
@@ -11,17 +10,16 @@ import './style.scss';
 export default function Auth() {
   const navigate = useNavigate()
   useEffect(() => {
-    const uid = getItem<string>("@todolist/uid")
+    const user = new AuthFirebase(auth).UserInfo
+    if(!user)return
+    const { uuid } = user
 
-    if(uid) {
-      navigate(`/users/${uid}/todos`)
-    }
+    navigate(`/users/${uuid}/todos`)
   })
   async function onClickHandler() {
     const authFirebase = new AuthFirebase(auth)
     const response = await authFirebase.authentication()
         
-    setItem("@todolist/uid", response)
     navigate(`/users/${response}/todos`)
   }
   return (
