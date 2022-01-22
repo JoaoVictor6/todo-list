@@ -2,23 +2,25 @@
 
 :root {
   --color-blue: #2481D6;
+  --color-background: #F1F0F5;
   accent-color: var(--color-blue);
 }
 
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
+
 button {
   border: none;
   cursor: pointer;
 }
 
 body {
-  margin: 0;
   font-family: 'Poppinss', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
-  background: #F1F0F5;
+  background: var(--color-background);
 }
