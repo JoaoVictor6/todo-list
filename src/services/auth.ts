@@ -5,6 +5,7 @@ interface CurrentUser {
   photoURL: string
   displayName: string
   email: string
+  uuid?: string
 }
 export class AuthFirebase {
   private auth: Auth
@@ -12,7 +13,7 @@ export class AuthFirebase {
     this.auth = auth
   }
 
-  async authentication():Promise<string> {
+  async authentication():Promise<string | undefined> {
     if(this.auth.currentUser?.uid) {
       return this.auth.currentUser?.uid
     }
