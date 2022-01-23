@@ -1,0 +1,30 @@
+.account-info {
+  width: 980px;
+  margin: 0 auto;
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px;
+  .account-info__button{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 1.375rem;
+    color: var(--color-dark-gray);
+    background: none;
+    * > * {transition: all .2s;}
+
+    &:hover, &:active {
+      color: var(--color-red);
+      svg > path {
+        stroke: var(--color-red);
+      }
+    } 
+  }
+
+  .account-info__user-picture {
+    border-radius: 100%;
+    width: 44px;
+  }
+}

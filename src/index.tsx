@@ -10,13 +10,13 @@ import App from './App';
 import Auth from './pages/Auth';
 
 ReactDOM.render(
-    <React.StrictMode>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/users/:uid/todos" element={<App />} />
-          <Route path="/" element={<Auth />} />
-        </Routes>
-      </BrowserRouter>
-    </React.StrictMode>,
-    document.getElementById('root'),
+  <React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/users/:uid/todos" element={<App />} />
+        <Route path="/" element={<Auth />} />
+      </Routes>
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root'),
 );
