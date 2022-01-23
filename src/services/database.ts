@@ -1,4 +1,4 @@
-import type { Auth } from "@firebase/auth";
+import type { Auth } from '@firebase/auth';
 import { 
   getDatabase, 
   ref, 
@@ -7,8 +7,8 @@ import {
   get, 
   child, 
   update
-} from "firebase/database";
-import { auth } from "./firebase";
+} from 'firebase/database';
+import { auth } from './firebase';
 
 interface firebaseTodosProps {
   finished: boolean
@@ -19,13 +19,13 @@ export class FirebaseDatabase {
 
   constructor(auth: Auth, fallbackFunction: () => void) {
 
-    auth.currentUser === null && fallbackFunction()
+    auth.currentUser === null && fallbackFunction();
   }
 
   async getTodos<T = firebaseTodosProps[]>(uid: string): Promise<T | null>{
     if(uid) {
       const dbRef = ref(getDatabase());
-      const data = await get(child(dbRef, `users/${uid}`))
+      const data = await get(child(dbRef, `users/${uid}`));
   
       if(data.exists()){
         const firebaseTodos = Object.entries<firebaseTodosProps>(data.val()).map(
@@ -34,14 +34,14 @@ export class FirebaseDatabase {
               id: key, 
               description: value.description,
               finished: value.finished
-            }
+            };
           })
-        )
+        );
   
-        return firebaseTodos as unknown as T
+        return firebaseTodos as unknown as T;
       }
     }
-    return null
+    return null;
   }
 
   writeUserTodo(
@@ -50,7 +50,7 @@ export class FirebaseDatabase {
     finished: boolean) 
   {
     const db = getDatabase();
-    const uid = auth.currentUser?.uid
+    const uid = auth.currentUser?.uid;
   
     set(ref(db, `users/${uid}/${todoId}`), {
       description,
@@ -64,24 +64,24 @@ export class FirebaseDatabase {
     finished: boolean) 
   {
     const db = getDatabase();
-    const uid = auth.currentUser?.uid
+    const uid = auth.currentUser?.uid;
     
     const updates:Record<string, {
       finished: boolean
       description: string
-    }> = {}
+    }> = {};
   
     updates[`/users/${uid}/${todoId}`] = { 
       finished, 
       description
-    }
+    };
   
-    await update(ref(db), updates)
+    await update(ref(db), updates);
   }
 
   deleteTodo(todoId:string) {
     const db = getDatabase();
-    const uid = auth.currentUser?.uid
-    remove(ref(db, `users/${uid}/${todoId}`))
+    const uid = auth.currentUser?.uid;
+    remove(ref(db, `users/${uid}/${todoId}`));
   }
 }

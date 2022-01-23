@@ -1,34 +1,33 @@
-import React, { useEffect, useState } from "react"
-import { useNavigate } from "react-router"
-import AuthFirebase from "../../services/auth"
-import { auth } from "../../services/firebase"
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import AuthFirebase from '../../services/auth';
 
-import './style.scss'
+import './style.scss';
 type UserProps ={
   photoUrl: string
   name: string
 }
 
 export default function Nav() {
-  const navigate = useNavigate()
-  const [userData, setUserData] = useState<UserProps>()
-  const { UserInfo, googleSignout } = AuthFirebase
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState<UserProps>();
+  const { UserInfo, googleSignout } = AuthFirebase;
   useEffect(() => {
-    if(!UserInfo) return navigate('/')
+    if(!UserInfo) return navigate('/');
 
     setUserData({
       photoUrl: UserInfo.photoURL,
       name: UserInfo.displayName
-    })
-  }, [])
+    });
+  }, [UserInfo, navigate]);
   return(
     <nav className="account-info">
       <button 
         className="account-info__button"
         onClick={() => {
           googleSignout().then(() => {
-            navigate('/')
-          })
+            navigate('/');
+          });
         }}
       >
         Exit
@@ -39,8 +38,8 @@ export default function Nav() {
       <img 
         className="account-info__user-picture"
         src={userData?.photoUrl}
-        alt={`${userData?.name} picture`}
+        alt={`${userData?.name}`}
       />
     </nav>
-  )
+  );
 }

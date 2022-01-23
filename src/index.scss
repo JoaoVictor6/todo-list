@@ -5,6 +5,7 @@
   --color-red: #FB3434;
   --color-light-blue: #73AEE5;
   --color-background: #F1F0F5;
+  --color-light-gray: #A9A6A6;
   --color-gray: #7D7D80;
   --color-dark-gray: #565459;
   accent-color: var(--color-blue);
@@ -14,11 +15,19 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
 
 button {
   border: none;
   cursor: pointer;
+  background: none;
+}
+
+input[type=text] {
+  background: none;
+  outline: none;
+  border: none;
 }
 
 body {

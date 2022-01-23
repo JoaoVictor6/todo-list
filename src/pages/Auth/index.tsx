@@ -1,25 +1,25 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthFirebase from '../../services/auth';
-import illustration from '../../assets/images/pablita-list-is-empty.png'
-import googleLogo from '../../assets/images/google-logo.png'
+import illustration from '../../assets/images/pablita-list-is-empty.png';
+import googleLogo from '../../assets/images/google-logo.png';
 
 import './style.scss';
 
 export default function Auth() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
-    const user = AuthFirebase.UserInfo
-    if(!user)return
-    const { uuid } = user
+    const user = AuthFirebase.UserInfo;
+    if(!user)return;
+    const { uuid } = user;
 
-    navigate(`/users/${uuid}/todos`)
-  })
+    navigate(`/users/${uuid}/todos`);
+  });
   async function onClickHandler() {
-    const authFirebase = AuthFirebase
-    const response = await authFirebase.authentication()
+    const authFirebase = AuthFirebase;
+    const response = await authFirebase.authentication();
         
-    navigate(`/users/${response}/todos`)
+    navigate(`/users/${response}/todos`);
   }
   return (
     <main className='container'>
