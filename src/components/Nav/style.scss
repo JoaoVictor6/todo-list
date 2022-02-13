@@ -28,3 +28,12 @@
     width: 44px;
   }
 }
+
+@media (max-width: 1000px) {
+  .account-info {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 16px 16px;
+  }
+}

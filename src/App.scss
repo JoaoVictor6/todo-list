@@ -27,7 +27,7 @@
         justify-content: center;
         margin: auto;
         img {
-          width: 491px
+          width: 70%;
         }
 
         h1 {
@@ -39,5 +39,38 @@
         }
       }
     }
+  }
+}
+
+@media (max-width: 1000px) {
+  .App {
+    .app-container {
+      width: 100%;
+      padding: 16px;
+      
+      .todo-container{
+        width: 100%;
+      }
+    }
+
+  }
+}
+
+@media (max-width: 414px) {
+  .App {
+    .app-container {
+      .todo-container{
+        
+        .notfound {
+          img {
+            width: 100%;
+          }
+          h1 {
+            font-size: 2.5rem;
+          }
+        }
+      }
+    }
+
   }
 }

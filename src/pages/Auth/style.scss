@@ -1,10 +1,6 @@
-@mixin centralize {
+.container {
   margin: 0 auto;
   height: 100vh;
-}
-
-.container {
-  @include centralize;
   margin-bottom: 1rem;
   width: 800px;
 
@@ -19,34 +15,61 @@
     font-size: 4rem;
 
     color: #7D7D80;
-    padding: 3.5rem;
   }
 
   .container__image {
-    width: 100%;
+    width: 70%;
   }
 
   .container__button {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
+    
     color: #fff;
-    padding: 2px;
+    padding: 5px;
     display: flex;
     align-items: center;
     gap: 4px;
-    border-radius: 2px;
+    border-radius: 60px;
     font-size: 1.375rem;
     width: 400px;
     background: var(--color-blue);
-    margin-top: 2rem;
+    margin-top: 1rem;
     transition: all .3s;
 
     p {
       margin: 0 auto;
     }
 
+    img {
+      border-radius: 100%;
+    }
+
     &:hover, &:active {
       filter: brightness(.9);
+    }
+  }
+}
+
+@media (max-width: 432px) {
+  .container .container__button {
+    width: calc(100vw - 32px);
+  }
+}
+
+@media (max-width: 810px) {
+  .container {
+    width: calc(100vw - 32px);
+    padding: 16px;
+    height: 100vh;
+    justify-content: space-evenly;
+
+    .container__title {
+      font-size: 3rem;
+      margin: 0;
+    }
+    .container__image {
+      width: 100%;
     }
   }
 }

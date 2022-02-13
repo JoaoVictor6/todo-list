@@ -26,3 +26,9 @@ form {
     }
   }
 }
+
+@media (max-width: 1000px) {
+  form {
+    width: 100%;
+  }
+}
