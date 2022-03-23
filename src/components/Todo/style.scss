@@ -5,6 +5,11 @@
   gap: .6rem;
 
   background: transparent;
+
+  input {
+    height: 100%;
+    width: 60%;
+  }
 }
 
 section.todo-item {
