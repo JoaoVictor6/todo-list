@@ -80,7 +80,7 @@ function App() {
   return (
     <main className="App">
       <Nav />
-      <Header />
+      <Header/>
       <section className="app-container">
         <Form submitHandler={submitHandler}/>
         <section className="todo-container">
